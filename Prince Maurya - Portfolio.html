@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prince Maurya — Portfolio | Engineer, Creator & Game Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Fira Code -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        dark: {
+                            900: '#0b0f19',
+                            800: '#111827',
+                            700: '#1f2937',
+                            600: '#374151',
+                        },
+                        cyanAccent: '#06b6d4',
+                        emeraldAccent: '#10b981',
+                    },
+                    boxShadow: {
+                        'glow-cyan': '0 0 25px -5px rgba(6, 182, 212, 0.4)',
+                        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-gray-100 antialiased selection:bg-cyan-500 selection:text-black">
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-900/95 border border-emerald-500 text-emerald-100 px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-sm">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message">Copied to clipboard successfully!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-card border-b border-gray-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-500 flex items-center justify-center text-dark-900 font-bold text-lg shadow-glow-cyan group-hover:scale-105 transition-transform">
+                    PM
+                </div>
+                <div>
+                    <span class="font-bold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-cyan-400">Prince Maurya</span>
+                    <span class="block text-xs code-font text-cyan-400">&lt;ECE /&gt;</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#home" class="text-gray-300 hover:text-cyan-400 transition-colors">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-cyan-400 transition-colors">About</a>
+                <a href="#youtube" class="text-gray-300 hover:text-cyan-400 transition-colors flex items-center space-x-1.5">
+                    <i class="fa-brands fa-youtube text-red-500"></i>
+                    <span>Crafted Science</span>
+                </a>
+                <a href="#projects" class="text-gray-300 hover:text-cyan-400 transition-colors">Projects & Games</a>
+                <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition-colors">Contact</a>
+            </nav>
+
+            <!-- Action Button -->
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="mailto:princetech8739@gmail.com" class="px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-500 text-dark-900 font-semibold text-sm hover:opacity-90 shadow-glow-cyan transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-paper-plane mr-1.5"></i> Let's Talk
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" aria-label="Toggle Navigation Menu" class="md:hidden text-gray-300 hover:text-white focus:outline-none p-2 rounded-lg bg-dark-800 border border-gray-700">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-t border-gray-800 px-6 py-6 space-y-4">
+            <a href="#home" class="block text-gray-300 hover:text-cyan-400 font-medium py-1.5 mobile-link">Home</a>
+            <a href="#about" class="block text-gray-300 hover:text-cyan-400 font-medium py-1.5 mobile-link">About</a>
+            <a href="#youtube" class="block text-gray-300 hover:text-cyan-400 font-medium py-1.5 mobile-link flex items-center space-x-2">
+                <i class="fa-brands fa-youtube text-red-500"></i>
+                <span>Crafted Science</span>
+            </a>
+            <a href="#projects" class="block text-gray-300 hover:text-cyan-400 font-medium py-1.5 mobile-link">Projects & Games</a>
+            <a href="#contact" class="block text-gray-300 hover:text-cyan-400 font-medium py-1.5 mobile-link">Contact</a>
+            <div class="pt-2">
+                <a href="mailto:princetech8739@gmail.com" class="block text-center w-full py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-500 text-dark-900 font-semibold text-sm shadow-glow-cyan">
+                    <i class="fa-solid fa-paper-plane mr-1.5"></i> Let's Talk
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main>
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen pt-32 pb-20 flex items-center relative overflow-hidden">
+            <!-- Background Glow Gradients -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-10 right-10 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-dark-800 border border-cyan-500/30 text-cyan-400 text-xs code-font shadow-inner">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                            <span>Lucknow University • ECE Student</span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-none">
+                            "I make machines <br/>
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">think out loud</span>"
+                        </h1>
+
+                        <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0 font-normal">
+                            Engineering student, hardware creator, and game developer bridging the gap between embedded electronics, code, and immersive digital worlds.
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                            <a href="https://youtube.com/@craftedscience-q8x?si=54MZD_HcEPMlbsik" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold flex items-center justify-center space-x-3 shadow-lg shadow-red-600/30 transition-all transform hover:-translate-y-0.5">
+                                <i class="fa-brands fa-youtube text-xl"></i>
+                                <span>Watch YouTube</span>
+                            </a>
+                            <a href="https://god-rays-studio.itch.io/" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-7 py-3.5 rounded-xl glass-card hover:bg-gray-800/80 text-cyan-400 border border-cyan-500/40 font-semibold flex items-center justify-center space-x-3 shadow-glow-cyan transition-all transform hover:-translate-y-0.5">
+                                <i class="fa-solid fa-gamepad text-xl"></i>
+                                <span>Explore Games</span>
+                            </a>
+                        </div>
+
+                        <!-- Quick Social Badges -->
+                        <div class="pt-6 flex items-center justify-center lg:justify-start space-x-5 text-gray-400">
+                            <span class="text-xs uppercase tracking-widest text-gray-500 font-semibold">Connect:</span>
+                            <a href="https://github.com/Princetech25" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 text-lg transition-colors" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/prince-maurya-65041842b" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 text-lg transition-colors" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="https://youtube.com/@craftedscience-q8x?si=54MZD_HcEPMlbsik" target="_blank" rel="noopener noreferrer" class="hover:text-red-500 text-lg transition-colors" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                            <button onclick="copyEmail()" class="hover:text-emerald-400 text-lg transition-colors bg-transparent border-0 cursor-pointer" title="Copy Email"><i class="fa-solid fa-envelope"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Visual / Code Card -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-card rounded-2xl p-6 shadow-2xl border border-cyan-500/20 relative group">
+                            <!-- Code Terminal Header -->
+                            <div class="flex items-center justify-between pb-4 border-b border-gray-800 mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                                </div>
+                                <span class="text-xs code-font text-gray-400">prince_profile.py</span>
+                            </div>
+                            <!-- Terminal Code Content -->
+                            <div class="code-font text-xs sm:text-sm text-gray-300 space-y-2 overflow-x-auto">
+                                <p><span class="text-purple-400">class</span> <span class="text-yellow-400">PrinceMaurya</span>:</p>
+                                <p class="pl-4"><span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(<span class="text-orange-400">self</span>):</p>
+                                <p class="pl-8"><span class="text-orange-400">self</span>.name = <span class="text-emerald-300">"Prince Maurya"</span></p>
+                                <p class="pl-8"><span class="text-orange-400">self</span>.role = <span class="text-emerald-300">"ECE Student & Creator"</span></p>
+                                <p class="pl-8"><span class="text-orange-400">self</span>.university = <span class="text-emerald-300">"Lucknow University"</span></p>
+                                <p class="pl-8"><span class="text-orange-400">self</span>.focus = [<span class="text-emerald-300">"Embedded Systems"</span>, <span class="text-emerald-300">"Game Dev"</span>, <span class="text-emerald-300">"Hardware"</span>]</p>
+                                <p class="pl-4"><span class="text-purple-400">def</span> <span class="text-blue-400">build_future</span>(<span class="text-orange-400">self</span>):</p>
+                                <p class="pl-8"><span class="text-cyan-400">print</span>(<span class="text-emerald-300">"Engineering hardware & crafting worlds!"</span>)</p>
+                            </div>
+                            <!-- Floating Badge -->
+                            <div class="absolute -bottom-4 -right-4 bg-dark-800 border border-emerald-500/50 px-4 py-2 rounded-xl shadow-glow-emerald flex items-center space-x-2">
+                                <i class="fa-solid fa-microchip text-emerald-400"></i>
+                                <span class="text-xs font-semibold text-emerald-300">God Rays Studio & Crafted Science</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-24 bg-dark-800/50 relative border-t border-gray-800/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-16">
+                    <h2 class="text-xs code-font uppercase tracking-widest text-cyan-400">&lt;About Me /&gt;</h2>
+                    <h3 class="text-3xl sm:text-4xl font-bold tracking-tight">Engineering Mind, Creative Soul</h3>
+                    <p class="text-gray-400 text-base">Blending rigorous electronics theory with practical software engineering and indie game creation.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Bio Details -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-4">
+                            <h4 class="text-xl font-bold text-cyan-400 flex items-center space-x-2">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                                <span>Academic & Creative Journey</span>
+                            </h4>
+                            <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                                I am an Electronics and Communication Engineering (ECE) student at <span class="text-white font-semibold">Lucknow University</span>. My academic journey has given me a rock-solid foundation in circuit design, signal processing, and embedded systems, which I love coupling with software development.
+                            </p>
+                            <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                                Beyond the classroom, I document my engineering builds and tutorials on my YouTube channel, <span class="text-red-400 font-semibold">Crafted Science</span>, and build immersive 2D/3D indie games through <span class="text-cyan-400 font-semibold">God Rays Studio</span> on Itch.io.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="glass-card p-5 rounded-xl border border-gray-800 text-center">
+                                <span class="block text-3xl font-extrabold text-cyan-400 mb-1">3+</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-wider">Years Coding & Building</span>
+                            </div>
+                            <div class="glass-card p-5 rounded-xl border border-gray-800 text-center">
+                                <span class="block text-3xl font-extrabold text-emerald-400 mb-1">10+</span>
+                                <span class="text-xs text-gray-400 uppercase tracking-wider">Hardware & Game Projects</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tech Stack & Skills -->
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6">
+                            <h4 class="text-xl font-bold text-emerald-400 flex items-center space-x-2">
+                                <i class="fa-solid fa-code"></i>
+                                <span>Core Tech Stack & Tools</span>
+                            </h4>
+
+                            <!-- Skill Badges Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <div class="p-3 rounded-xl bg-dark-900/80 border border-gray-700/60 flex items-center space-x-3">
+                                    <i class="fa-brands fa-python text-yellow-400 text-xl"></i>
+                                    <div>
+                                        <div class="font-semibold text-sm">Python</div>
+                                        <div class="text-xs text-gray-400">Scripting & AI</div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-dark-900/80 border border-gray-700/60 flex items-center space-x-3">
+                                    <i class="fa-solid fa-microchip text-cyan-400 text-xl"></i>
+                                    <div>
+                                        <div class="font-semibold text-sm">C / C++</div>
+                                        <div class="text-xs text-gray-400">Embedded Systems</div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-dark-900/80 border border-gray-700/60 flex items-center space-x-3">
+                                    <i class="fa-brands fa-windows text-purple-400 text-xl"></i>
+                                    <div>
+                                        <div class="font-semibold text-sm">C#</div>
+                                        <div class="text-xs text-gray-400">Unity Game Dev</div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-dark-900/80 border border-gray-700/60 flex items-center space-x-3">
+                                    <i class="fa-solid fa-bolt text-emerald-400 text-xl"></i>
+                                    <div>
+                                        <div class="font-semibold text-sm">Arduino</div>
+                                        <div class="text-xs text-gray-400">Hardware Prototyping</div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-dark-900/80 border border-gray-700/60 flex items-center space-x-3">
+                                    <i class="fa-solid fa-code text-blue-400 text-xl"></i>
+                                    <div>
+                                        <div class="font-semibold text-sm">VS Code</div>
+                                        <div class="text-xs text-gray-400">Primary IDE</div>
+                                    </div>
+                                </div>
+                                <div class="p-3 rounded-xl bg-dark-900/80 border border-gray-700/60 flex items-center space-x-3">
+                                    <i class="fa-solid fa-gamepad text-pink-400 text-xl"></i>
+                                    <div>
+                                        <div class="font-semibold text-sm">Godot</div>
+                                        <div class="text-xs text-gray-400">2D/3D Engines</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 border-t border-gray-800 text-xs text-gray-400 flex items-center justify-between">
+                                <span>Hardware + Software synergy</span>
+                                <span class="code-font text-cyan-400">Always learning</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- YouTube Hub Section ("Crafted Science") -->
+        <section id="youtube" class="py-24 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div>
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-red-950/50 border border-red-500/30 text-red-400 text-xs code-font mb-3">
+                            <i class="fa-brands fa-youtube"></i>
+                            <span>YouTube Creator Hub</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Crafted Science</h2>
+                        <p class="text-gray-400 text-base mt-2">Engineering tutorials, hardware DIY builds, and deep dives into tech projects.</p>
+                    </div>
+                    <div>
+                        <a href="https://youtube.com/@craftedscience-q8x?si=54MZD_HcEPMlbsik" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-semibold text-sm flex items-center space-x-2.5 shadow-lg shadow-red-600/30 transition-all">
+                            <i class="fa-brands fa-youtube text-lg"></i>
+                            <span>Subscribe to Channel</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Video Showcase Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Video Card 1 -->
+                    <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between border border-gray-800 hover:border-red-500/40 transition-all">
+                        <div>
+                            <div class="relative aspect-video bg-dark-900 overflow-hidden flex items-center justify-center">
+                                <img src="https://placehold.co/600x338/111827/06b6d4?text=Arduino+Embedded+Build" alt="Arduino Build Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x338/111827/ffffff?text=Crafted+Science'">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform">
+                                        <i class="fa-solid fa-play ml-0.5"></i>
+                                    </div>
+                                </div>
+                                <span class="absolute bottom-3 right-3 px-2 py-1 rounded bg-black/80 text-xs code-font text-white">12:45</span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center justify-between text-xs text-gray-400 code-font">
+                                    <span class="text-red-400">Hardware Tutorial</span>
+                                    <span>Recent Upload</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-red-400 transition-colors">Voice Warning Water Tank Overflow Alarm using Arduino</h3>
+                                <p class="text-sm text-gray-400 line-clamp-2">A comprehensive guide on using microcontrollers, and debugging hardware prototypes effectively.</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0">
+                            <a href="https://youtu.be/rGoMLG1wtTM?si=_gTfe3NGM99uwWUO" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1.5">
+                                <span>Watch on YouTube</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 2 -->
+                    <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between border border-gray-800 hover:border-red-500/40 transition-all">
+                        <div>
+                            <div class="relative aspect-video bg-dark-900 overflow-hidden flex items-center justify-center">
+                                <img src="https://placehold.co/600x338/111827/10b981?text=Blink+LED+Using Arduino" alt="Circuit Design Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x338/111827/ffffff?text=Crafted+Science'">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform">
+                                        <i class="fa-solid fa-play ml-0.5"></i>
+                                    </div>
+                                </div>
+                                <span class="absolute bottom-3 right-3 px-2 py-1 rounded bg-black/80 text-xs code-font text-white">18:20</span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center justify-between text-xs text-gray-400 code-font">
+                                    <span class="text-red-400">ECE Deep Dive</span>
+                                    <span>Popular Build</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-red-400 transition-colors">Blink LED using Arduino UNO your First Project</h3>
+                                <p class="text-sm text-gray-400 line-clamp-2">Starting with Arduino UNO</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0">
+                            <a href="https://www.youtube.com/watch?v=Pw7fW4Ya4mk&t=3s" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1.5">
+                                <span>Watch on YouTube</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Video Card 3 -->
+                    <div class="glass-card rounded-2xl overflow-hidden group flex flex-col justify-between border border-gray-800 hover:border-red-500/40 transition-all">
+                        <div>
+                            <div class="relative aspect-video bg-dark-900 overflow-hidden flex items-center justify-center">
+                                <img src="https://placehold.co/600x338/111827/ef4444?text=Using+UltraSonic+Sensor" alt="Game Dev Log Video" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x338/111827/ffffff?text=Crafted+Science'">
+                                <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                                    <div class="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center text-white text-lg shadow-lg group-hover:scale-110 transition-transform">
+                                        <i class="fa-solid fa-play ml-0.5"></i>
+                                    </div>
+                                </div>
+                                <span class="absolute bottom-3 right-3 px-2 py-1 rounded bg-black/80 text-xs code-font text-white">09:15</span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center justify-between text-xs text-gray-400 code-font">
+                                    <span class="text-red-400">Indie DevLog</span>
+                                    <span>Dev Diary</span>
+                                </div>
+                                <h3 class="font-bold text-lg text-white group-hover:text-red-400 transition-colors">Using UltraSonic Sensor</h3>
+                                <p class="text-sm text-gray-400 line-clamp-2">Distance detector project Using UltraSonic Sensor</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0">
+                            <a href="https://youtube.com/shorts/wLC9E-aFGQw?si=w8hWabg9aNmX8O-s" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-cyan-400 hover:text-cyan-300 flex items-center space-x-1.5">
+                                <span>Watch on YouTube</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Games & Projects Section -->
+        <section id="projects" class="py-24 bg-dark-800/50 border-t border-gray-800/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+                    <h2 class="text-xs code-font uppercase tracking-widest text-emerald-400">&lt;Portfolio /&gt;</h2>
+                    <h3 class="text-3xl sm:text-4xl font-bold tracking-tight">Games & Technical Builds</h3>
+                    <p class="text-gray-400 text-base">Explore indie games crafted by God Rays Studio and hardware/software projects hosted on GitHub.</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex items-center justify-center space-x-2 sm:space-x-4 mb-12 overflow-x-auto pb-2">
+                    <button onclick="filterProjects('all')" class="project-tab px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-cyan-500 text-dark-900 font-semibold shadow-glow-cyan active-tab" data-filter="all">All Projects</button>
+                    <button onclick="filterProjects('games')" class="project-tab px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-dark-900 border border-gray-700 text-gray-300 hover:text-white" data-filter="games">Game Dev (Itch.io)</button>
+                    <button onclick="filterProjects('hardware')" class="project-tab px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-dark-900 border border-gray-700 text-gray-300 hover:text-white" data-filter="hardware">Hardware & Arduino</button>
+                    <button onclick="filterProjects('software')" class="project-tab px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-dark-900 border border-gray-700 text-gray-300 hover:text-white" data-filter="software">Software & Python</button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1: God Rays Studio Game -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden border border-gray-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between" data-category="games">
+                        <div>
+                            <div class="relative aspect-video bg-dark-900 overflow-hidden flex items-center justify-center">
+                                <img src="https://placehold.co/600x338/111827/06b6d4?text=God+Rays+Studio+Game" alt="God Rays Studio Game" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x338/111827/ffffff?text=God+Rays+Studio'">
+                                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-cyan-400 text-xs code-font font-semibold">Itch.io</span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center space-x-2 text-xs code-font text-emerald-400">
+                                    <span>Unity / C#</span>
+                                    <span>•</span>
+                                    <span>God Rays Studio</span>
+                                </div>
+                                <h4 class="font-bold text-xl text-white">Indie 3D/2D Game Title</h4>
+                                <p class="text-sm text-gray-400">An immersive indie game title developed using Unity and custom C# gameplay scripts, featuring atmospheric lighting and mechanics.</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-gray-800/60 mt-4 pt-4">
+                            <span class="text-xs text-gray-400">God Rays Studio</span>
+                            <a href="https://god-rays-studio.itch.io/" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-xs font-semibold flex items-center space-x-1.5 transition-colors">
+                                <span>Play on Itch.io</span>
+                                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Arduino Hardware Build -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden border border-gray-800 hover:border-emerald-500/40 transition-all flex flex-col justify-between" data-category="hardware">
+                        <div>
+                            <div class="relative aspect-video bg-dark-900 overflow-hidden flex items-center justify-center">
+                                <img src="https://placehold.co/600x338/111827/10b981?text=Arduino+IoT+System+Source+code" alt="Arduino IoT System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x338/111827/ffffff?text=Arduino+Build'">
+                                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-emerald-950/90 border border-emerald-500/40 text-emerald-400 text-xs code-font font-semibold">Hardware</span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center space-x-2 text-xs code-font text-cyan-400">
+                                    <span>C / C++</span>
+                                    <span>•</span>
+                                    <span>Arduino Prototyping</span>
+                                </div>
+                                <h4 class="font-bold text-xl text-white">Source Code for Your Projects</h4>
+                                <p class="text-sm text-gray-400">A place where you will find all the source code for your Arduino project.</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-gray-800/60 mt-4 pt-4">
+                            <span class="text-xs text-gray-400">ECE Hardware Build</span>
+                            <a href="https://github.com/Princetech25" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center space-x-1.5 transition-colors">
+                                <span>View GitHub</span>
+                                <i class="fa-solid fa-code text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Python Software Script -->
+                    <div class="project-card glass-card rounded-2xl overflow-hidden border border-gray-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between" data-category="software">
+                        <div>
+                            <div class="relative aspect-video bg-dark-900 overflow-hidden flex items-center justify-center">
+                                <img src="https://placehold.co/600x338/111827/3b82f6?text=Python+Automation+Tool" alt="Python Automation Tool" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80" onerror="this.src='https://placehold.co/600x338/111827/ffffff?text=Python+Tool'">
+                                <span class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-blue-950/90 border border-blue-500/40 text-blue-400 text-xs code-font font-semibold">Software</span>
+                            </div>
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center space-x-2 text-xs code-font text-yellow-400">
+                                    <span>Python</span>
+                                    <span>•</span>
+                                    <span>Scripting & Automation</span>
+                                </div>
+                                <h4 class="font-bold text-xl text-white">Automation & Data Utility Script</h4>
+                                <p class="text-sm text-gray-400">Comming soon:--A robust Python utility designed to streamline data collection, serial communication logging, and system analysis.</p>
+                            </div>
+                        </div>
+                        <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-gray-800/60 mt-4 pt-4">
+                            <span class="text-xs text-gray-400">Open Source</span>
+                            <a href="https://github.com/Princetech25" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-semibold flex items-center space-x-1.5 transition-colors">
+                                <span>View GitHub</span>
+                                <i class="fa-solid fa-code text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact & Footer Section -->
+        <section id="contact" class="py-24 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-800 to-transparent pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                
+                <div class="glass-card rounded-3xl p-8 sm:p-12 border border-cyan-500/30 shadow-2xl relative overflow-hidden">
+                    <!-- Background Glow -->
+                    <div class="absolute -top-24 -right-24 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs code-font">
+                                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                                <span>Get In Touch</span>
+                            </div>
+                            <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">Let's build something <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-emerald-400">extraordinary together.</span></h2>
+                            <p class="text-gray-300 text-base max-w-xl">
+                                Whether you want to discuss ECE hardware builds, collaborate on an indie game project through God Rays Studio, or chat about Crafted Science tutorials — my inbox is always open.
+                            </p>
+
+                            <div class="pt-2 flex flex-wrap gap-4">
+                                <a href="mailto:princetech8739@gmail.com" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 text-dark-900 font-bold text-sm hover:opacity-90 shadow-glow-cyan transition-all flex items-center space-x-2">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <span>princetech8739@gmail.com</span>
+                                </a>
+                                <button onclick="copyEmail()" class="px-6 py-3.5 rounded-xl glass-card hover:bg-gray-800 text-gray-200 border border-gray-700 font-semibold text-sm transition-all flex items-center space-x-2">
+                                    <i class="fa-solid fa-copy"></i>
+                                    <span>Copy Email</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Social Links Card -->
+                        <div class="lg:col-span-5 space-y-4">
+                            <div class="bg-dark-900/80 p-6 rounded-2xl border border-gray-800 space-y-4">
+                                <h4 class="font-bold text-lg text-white mb-2">Verified Professional Links</h4>
+                                
+                                <a href="https://github.com/Princetech25" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 hover:bg-gray-700/80 border border-gray-700/60 transition-colors group">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-lg bg-dark-900 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                                            <i class="fa-brands fa-github text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-sm">GitHub Profile</div>
+                                            <div class="text-xs text-gray-400">Princetech25</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs"></i>
+                                </a>
+
+                                <a href="https://www.linkedin.com/in/prince-maurya-65041842b" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 hover:bg-gray-700/80 border border-gray-700/60 transition-colors group">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-lg bg-dark-900 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                                            <i class="fa-brands fa-linkedin text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-sm">LinkedIn Network</div>
+                                            <div class="text-xs text-gray-400">Prince Maurya</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs"></i>
+                                </a>
+
+                                <a href="https://youtube.com/@craftedscience-q8x?si=54MZD_HcEPMlbsik" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 hover:bg-gray-700/80 border border-gray-700/60 transition-colors group">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-lg bg-dark-900 flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform">
+                                            <i class="fa-brands fa-youtube text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-sm">Crafted Science</div>
+                                            <div class="text-xs text-gray-400">YouTube Channel</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs"></i>
+                                </a>
+
+                                <a href="https://god-rays-studio.itch.io/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3.5 rounded-xl bg-dark-800 hover:bg-gray-700/80 border border-gray-700/60 transition-colors group">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 rounded-lg bg-dark-900 flex items-center justify-center text-pink-500 group-hover:scale-110 transition-transform">
+                                            <i class="fa-solid fa-gamepad text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-sm">God Rays Studio</div>
+                                            <div class="text-xs text-gray-400">Itch.io Games</div>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-arrow-up-right-from-square text-gray-500 text-xs"></i>
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="pt-12 mt-12 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 space-y-4 sm:space-y-0">
+                    <div>
+                        © <span id="current-year">2026</span> Prince Maurya. All rights reserved. Built with passion & ECE precision.
+                    </div>
+                    <div class="code-font text-cyan-400">
+                        &lt;Crafted Science & God Rays Studio /&gt;
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        // Set dynamic current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Copy Email Function with Toast Notification
+        function copyEmail() {
+            const email = 'princetech8739@gmail.com';
+            
+            // Fallback copy method compatible with sandboxed iframe environments
+            const textArea = document.createElement("textarea");
+            textArea.value = email;
+            textArea.style.position = "fixed";  // Avoid scrolling to bottom
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast("Email 'princetech8739@gmail.com' copied successfully!");
+                } else {
+                    showToast("Failed to copy email.");
+                }
+            } catch (err) {
+                showToast("Unable to copy to clipboard.");
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Toast Notification Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Project Filtering Functionality
+        function filterProjects(category) {
+            const tabs = document.querySelectorAll('.project-tab');
+            tabs.forEach(tab => {
+                if(tab.getAttribute('data-filter') === category) {
+                    tab.className = "project-tab px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-cyan-500 text-dark-900 font-semibold shadow-glow-cyan";
+                } else {
+                    tab.className = "project-tab px-5 py-2.5 rounded-xl text-sm font-medium transition-all bg-dark-900 border border-gray-700 text-gray-300 hover:text-white";
+                }
+            });
+
+            const cards = document.querySelectorAll('.project-card');
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if(category === 'all' || cardCat === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
